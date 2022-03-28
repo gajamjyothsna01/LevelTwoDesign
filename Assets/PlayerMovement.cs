@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Rigidbody2D rb;
+   private Rigidbody2D rb;
 
     public float playerSpeed;
     private SpriteRenderer sp;
@@ -14,8 +14,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sp = GetComponent<SpriteRenderer>();    
+       // sp = GetComponent<SpriteRenderer>();    
         animator = GetComponent<Animator>();
+        render = GetComponent<SpriteRenderer>();
         
     }
 
@@ -23,13 +24,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float inputX = Input.GetAxis("Horizontal") * playerSpeed;
-            transform.Translate(new Vector3(inputX,transform.position.y,transform.position.z));
-            rb.velocity = new Vector3(inputX, rb.velocity.y,0);
+           // transform.Translate(new Vector3(inputX,transform.position.y,transform.position.z));
+            rb.velocity = new Vector3(inputX, rb.velocity.y);
         if (inputX < 0)
-            render.flipX = false;
+            render.flipX = true;
         else
             render.flipX = false;
-        animator.SetBool("IsWalk", inputX != 0);
-
+        
+        animator.SetBool("isWalk", inputX != 0);
+      
     }
 }
